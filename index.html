@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PHOENIX ЗАКАЗЫ</title>
+
+<style>
+:root{
+--bg:#ffffff;
+--text:#000;
+--card:#fff;
+--border:#ececec;
+--secondary:#8e8e93;
+--btn:#000;
+}
+
+body.dark{
+--bg:#000;
+--text:#fff;
+--card:#1c1c1e;
+--border:#2c2c2e;
+--secondary:#a1a1a6;
+--btn:#fff;
+}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,"San Francisco",Arial;
+background:var(--bg);
+color:var(--text);
+transition:0.3s ease;
+}
+
+/* ====== ПРИВЕТСТВИЕ ====== */
+#welcome{
+position:fixed;
+inset:0;
+background:var(--bg);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:999;
+text-align:center;
+}
+
+#welcome img{
+width:120px;
+margin-bottom:20px;
+animation:float 2s infinite ease-in-out;
+}
+
+#welcome h1{margin:0;font-size:28px;}
+#welcome p{color:var(--secondary);margin:10px 0 25px;}
+
+#welcome button{
+padding:14px 28px;
+border:none;
+border-radius:18px;
+background:var(--btn);
+color:var(--bg);
+font-size:16px;
+cursor:pointer;
+}
+
+/* ====== ПЕРЕКЛЮЧАТЕЛЬ ====== */
+.theme-switch{
+position:fixed;
+top:16px;
+right:16px;
+width:52px;
+height:28px;
+background:#e5e5ea;
+border-radius:20px;
+display:flex;
+align-items:center;
+padding:3px;
+cursor:pointer;
+z-index:100;
+}
+
+body.dark .theme-switch{background:#2c2c2e;}
+
+.switch-circle{
+width:22px;
+height:22px;
+background:#fff;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+transition:0.3s;
+}
+
+body.dark .switch-circle{
+transform:translateX(24px);
+background:#000;
+}
+
+.switch-circle svg{width:14px;height:14px;}
+
+/* ====== КОНТЕНТ ====== */
+header{
+text-align:center;
+padding:20px;
+font-weight:600;
+border-bottom:1px solid var(--border);
+}
+
+.container{
+max-width:420px;
+margin:20px auto;
+padding:0 15px;
+}
+
+.card{
+background:var(--card);
+border:1px solid var(--border);
+border-radius:20px;
+padding:20px;
+}
+
+label{font-size:14px;color:var(--secondary);}
+
+select{
+width:100%;
+margin-top:8px;
+padding:14px;
+border-radius:12px;
+border:1px solid var(--border);
+background:var(--bg);
+color:var(--text);
+font-size:16px;
+}
+
+.price{
+margin-top:15px;
+font-size:18px;
+}
+
+.buy{
+width:100%;
+margin-top:20px;
+padding:14px;
+border:none;
+border-radius:14px;
+background:var(--btn);
+color:var(--bg);
+font-size:16px;
+cursor:pointer;
+}
+
+.more-link{
+display:inline-block;
+margin-top:15px;
+font-size:13px;
+color:var(--secondary);
+text-decoration:none;
+transition:0.2s;
+}
+
+.more-link span{
+display:inline-block;
+animation:arrowMove 1s infinite;
+}
+
+.more-link:hover{opacity:0.7;}
+
+/* ====== АНИМАЦИИ ====== */
+@keyframes arrowMove{
+0%{transform:translateX(0);}
+50%{transform:translateX(5px);}
+100%{transform:translateX(0);}
+}
+
+@keyframes float{
+0%{transform:translateY(0);}
+50%{transform:translateY(-8px);}
+100%{transform:translateY(0);}
+}
+</style>
+</head>
+<body>
+
+<!-- ПРИВЕТСТВИЕ -->
+<div id="welcome">
+<img src="hi.png" alt="hi">
+<h1>Привет</h1>
+<p>Добро пожаловать в PHOENIX</p>
+<button onclick="enter()">Продолжить</button>
+</div>
+
+<!-- ПЕРЕКЛЮЧАТЕЛЬ -->
+<div class="theme-switch" onclick="toggleTheme()">
+<div class="switch-circle" id="icon">
+<svg viewBox="0 0 24 24" fill="none" stroke="orange" stroke-width="2" stroke-linecap="round">
+  <circle cx="12" cy="12" r="4"/>
+  <line x1="12" y1="1.5" x2="12" y2="4"/>
+  <line x1="12" y1="20" x2="12" y2="22.5"/>
+  <line x1="1.5" y1="12" x2="4" y2="12"/>
+  <line x1="20" y1="12" x2="22.5" y2="12"/>
+</svg>
+</div>
+</div>
+
+<header>PHOENIX ЗАКАЗЫ</header>
+
+<div class="container">
+<div class="card">
+<label>Товар</label>
+<select id="product" onchange="updatePrice()">
+<option value="" data-price="">Выберите товар</option>
+
+<option value="Форум Блек раша" data-price="45₽">Форум Блек раша</option>
+<option value="Форум матрешки" data-price="45₽">Форум матрешки</option>
+<option value="Форум Аризоны" data-price="45₽">Форум Аризоны</option>
+
+<option value="Универсальный установочный сайт" data-price="75₽">Универсальный установочный сайт</option>
+
+<option value="Установочный сайт Блек раши" data-price="50₽">Установочный сайт Блек раши</option>
+<option value="Установочный сайт Аризона" data-price="50₽">Установочный сайт Аризона</option>
+
+</select>
+
+<div class="price" id="price">Цена: —</div>
+<button class="buy" onclick="buy()">Купить</button>
+
+<a href="more.html" class="more-link">
+подробнее <span>>></span>
+</a>
+
+</div>
+</div>
+
+<script>
+function enter(){
+document.getElementById("welcome").style.display="none";
+}
+
+function toggleTheme(){
+document.body.classList.toggle("dark");
+const icon=document.getElementById("icon");
+
+if(document.body.classList.contains("dark")){
+icon.innerHTML=`<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+<path d="M21 12.5A9 9 0 1 1 11.5 3 7 7 0 0 0 21 12.5z"/>
+</svg>`;
+}else{
+icon.innerHTML=`<svg viewBox="0 0 24 24" fill="none" stroke="orange" stroke-width="2" stroke-linecap="round">
+  <circle cx="12" cy="12" r="4"/>
+  <line x1="12" y1="1.5" x2="12" y2="4"/>
+  <line x1="12" y1="20" x2="12" y2="22.5"/>
+  <line x1="1.5" y1="12" x2="4" y2="12"/>
+  <line x1="20" y1="12" x2="22.5" y2="12"/>
+</svg>`;
+}
+}
+
+function updatePrice(){
+let select=document.getElementById("product");
+let price=select.options[select.selectedIndex].getAttribute("data-price");
+document.getElementById("price").innerText=price?"Цена: "+price:"Цена: —";
+}
+
+function buy(){
+let select=document.getElementById("product");
+let name=select.value;
+let price=select.options[select.selectedIndex].getAttribute("data-price");
+
+if(!name||!price){
+alert("Пожалуйста, выберите товар.");
+return;
+}
+
+let text=encodeURIComponent("Привет, заказ\n"+name+"\n"+price);
+window.location.href="https://t.me/PHOENIX_KINGG?text="+text;
+}
+</script>
+
+</body>
+</html>

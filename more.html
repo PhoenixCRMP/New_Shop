@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Подробнее | PHOENIX</title>
+
+<style>
+:root{
+--bg:#ffffff;
+--text:#000;
+--card:#fff;
+--border:#ececec;
+--secondary:#8e8e93;
+--btn:#000;
+}
+
+body.dark{
+--bg:#000;
+--text:#fff;
+--card:#1c1c1e;
+--border:#2c2c2e;
+--secondary:#a1a1a6;
+--btn:#fff;
+}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,"San Francisco",Arial;
+background:var(--bg);
+color:var(--text);
+transition:0.3s ease;
+}
+
+/* Переключатель */
+.theme-switch{
+position:fixed;
+top:16px;
+right:16px;
+width:52px;
+height:28px;
+background:#e5e5ea;
+border-radius:20px;
+display:flex;
+align-items:center;
+padding:3px;
+cursor:pointer;
+z-index:100;
+}
+
+body.dark .theme-switch{background:#2c2c2e;}
+
+.switch-circle{
+width:22px;
+height:22px;
+background:#fff;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+transition:0.3s;
+}
+
+body.dark .switch-circle{
+transform:translateX(24px);
+background:#000;
+}
+
+.switch-circle svg{width:14px;height:14px;}
+
+/* Шапка */
+header{
+text-align:center;
+padding:20px;
+font-weight:600;
+border-bottom:1px solid var(--border);
+}
+
+/* Карточки */
+.container{
+max-width:420px;
+margin:20px auto;
+padding:0 15px;
+}
+
+.card{
+background:var(--card);
+border:1px solid var(--border);
+border-radius:18px;
+padding:15px;
+margin-bottom:15px;
+}
+
+.card img{
+width:100%;
+border-radius:14px;
+}
+
+.card h3{
+margin:10px 0 5px;
+font-size:18px;
+}
+
+.card p{
+margin:0;
+color:var(--secondary);
+font-size:14px;
+}
+
+.card button{
+margin-top:10px;
+width:100%;
+padding:12px;
+border:none;
+border-radius:12px;
+background:var(--btn);
+color:var(--bg);
+font-size:15px;
+cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+<!-- Переключатель -->
+<div class="theme-switch" onclick="toggleTheme()">
+<div class="switch-circle" id="icon">
+<svg viewBox="0 0 24 24" fill="none" stroke="orange" stroke-width="2" stroke-linecap="round">
+  <circle cx="12" cy="12" r="4"/>
+  <line x1="12" y1="1.5" x2="12" y2="4"/>
+  <line x1="12" y1="20" x2="12" y2="22.5"/>
+  <line x1="1.5" y1="12" x2="4" y2="12"/>
+  <line x1="20" y1="12" x2="22.5" y2="12"/>
+</svg>
+</div>
+</div>
+
+<header>PHOENIX — Подробнее</header>
+
+<div class="container">
+
+<div class="card">
+<img src="FBr.png" alt="Форум Блек раши">
+<h3>Форум Блек раши</h3>
+<p>Готовый форум для Black Russia</p>
+<button onclick="buy('Форум Блек раши','45₽')">Купить — 45₽</button>
+</div>
+
+<div class="card">
+<img src="FM.png" alt="Форум Матрешки">
+<h3>Форум Матрешки</h3>
+<p>Сборка форума для Матрешки RP</p>
+<button onclick="buy('Форум Матрешки','45₽')">Купить — 45₽</button>
+</div>
+
+<div class="card">
+<img src="FA.png" alt="Форум Аризоны">
+<h3>Форум Аризоны</h3>
+<p>Готовый форум для Arizona RP</p>
+<button onclick="buy('Форум Аризоны','45₽')">Купить — 45₽</button>
+</div>
+
+<div class="card">
+<img src="US.png" alt="Универсальный сайт">
+<h3>Универсальный сайт</h3>
+<p>Установка под любой проект</p>
+<button onclick="buy('Универсальный сайт','75₽')">Купить — 75₽</button>
+</div>
+
+<div class="card">
+<img src="IBR.png" alt="Установочный Black Russia">
+<h3>Установочный сайт Black Russia</h3>
+<p>Готовая установка форума</p>
+<button onclick="buy('Установочный Black Russia','50₽')">Купить — 50₽</button>
+</div>
+
+<div class="card">
+<img src="IAR.png" alt="Установочный Arizona">
+<h3>Установочный сайт Arizona</h3>
+<p>Готовая установка форума</p>
+<button onclick="buy('Установочный Arizona','50₽')">Купить — 50₽</button>
+</div>
+
+</div>
+
+<script>
+function toggleTheme(){
+document.body.classList.toggle("dark");
+const icon=document.getElementById("icon");
+
+if(document.body.classList.contains("dark")){
+icon.innerHTML=`<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+<path d="M21 12.5A9 9 0 1 1 11.5 3 7 7 0 0 0 21 12.5z"/>
+</svg>`;
+}else{
+icon.innerHTML=`<svg viewBox="0 0 24 24" fill="none" stroke="orange" stroke-width="2" stroke-linecap="round">
+  <circle cx="12" cy="12" r="4"/>
+  <line x1="12" y1="1.5" x2="12" y2="4"/>
+  <line x1="12" y1="20" x2="12" y2="22.5"/>
+  <line x1="1.5" y1="12" x2="4" y2="12"/>
+  <line x1="20" y1="12" x2="22.5" y2="12"/>
+</svg>`;
+}
+}
+
+function buy(name,price){
+let text=encodeURIComponent("Привет, заказ\n"+name+"\n"+price);
+window.location.href="https://t.me/PHOENIX_KINGG?text="+text;
+}
+</script>
+
+</body>
+</html>
