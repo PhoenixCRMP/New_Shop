@@ -212,14 +212,14 @@ animation:arrowMove 1s infinite;
 <select id="product" onchange="updatePrice()">
 <option value="" data-price="">Выберите товар</option>
 
-<option value="Форум Блек раша" data-price="45₽">Форум Блек раша</option>
-<option value="Форум матрешки" data-price="45₽">Форум матрешки</option>
-<option value="Форум Аризоны" data-price="45₽">Форум Аризоны</option>
+<option value="Форум Блек раша" data-price="45">Форум Блек раша</option>
+<option value="Форум матрешки" data-price="45">Форум матрешки</option>
+<option value="Форум Аризоны" data-price="45">Форум Аризоны</option>
 
-<option value="Универсальный установочный сайт" data-price="75₽">Универсальный установочный сайт</option>
+<option value="Универсальный установочный сайт" data-price="75">Универсальный установочный сайт</option>
 
-<option value="Установочный сайт Блек раши" data-price="50₽">Установочный сайт Блек раши</option>
-<option value="Установочный сайт Аризона" data-price="50₽">Установочный сайт Аризона</option>
+<option value="Установочный сайт Блек раши" data-price="50">Установочный сайт Блек раши</option>
+<option value="Установочный сайт Аризона" data-price="50">Установочный сайт Аризона</option>
 
 </select>
 
@@ -260,21 +260,55 @@ icon.innerHTML=`<svg viewBox="0 0 24 24" fill="none" stroke="orange" stroke-widt
 function updatePrice(){
 let select=document.getElementById("product");
 let price=select.options[select.selectedIndex].getAttribute("data-price");
-document.getElementById("price").innerText=price?"Цена: "+price:"Цена: —";
+document.getElementById("price").innerText=price?"Цена: "+price+"₽":"Цена: —";
 }
 
 function buy(){
 let select=document.getElementById("product");
 let name=select.value;
-let price=select.options[select.selectedIndex].getAttribute("data-price");
+let priceText=select.options[select.selectedIndex].getAttribute("data-price");
 
-if(!name||!price){
+if(!name || !priceText){
 alert("Пожалуйста, выберите товар.");
 return;
 }
 
-let text=encodeURIComponent("Привет, заказ\n"+name+"\n"+price);
-window.location.href="https://t.me/PHOENIX_KINGG?text="+text;
+let price = parseFloat(priceText);
+let finalPrice = price;
+let promoText = "Без промокода";
+
+let hasPromo = confirm("У вас есть промокод?");
+if(hasPromo){
+let code = prompt("Введите промокод:");
+
+if(code === "1Tutor"){
+
+let used = parseInt(localStorage.getItem("promoUses") || "0");
+
+if(used >= 50){
+alert("Промокод больше недействителен (50/50)");
+promoText = "Промокод: истёк (50/50)";
+} else {
+localStorage.setItem("promoUses", used + 1);
+finalPrice = price * 0.75; // Скидка 25%
+promoText = "Промокод: 1Tutor (скидка 25%)";
+alert("Промокод применён! Осталось активаций: " + (50 - used - 1));
+}
+
+} else {
+promoText = "Промокод: неверный";
+alert("Промокод неверный");
+}
+}
+
+let message =
+"Привет, заказ\n" +
+name + "\n" +
+"Цена: " + finalPrice.toFixed(2) + "₽\n" +
+promoText;
+
+let text = encodeURIComponent(message);
+window.location.href = "https://t.me/PHOENIX_KINGG?text=" + text;
 }
 </script>
 
